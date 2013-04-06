@@ -4,6 +4,7 @@
 #include <drv/intrCtl/m8260IntrCtl.h>
 #include <cacheLib.h>
 #include <drv/parallel/m8260IOPort.h>
+#include "spi.h"
 
 
 /*op code*/
@@ -48,7 +49,7 @@ void audioInit()
 		spiInit();
 		
 	/*set spi receive isr*/
-//spiSetIsr(audioReadIntr);
+  spiSetIsr(audioReadIntr);
 
 #if 1	
 	/*connect audio isr*/

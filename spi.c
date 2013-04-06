@@ -4,7 +4,6 @@
 #include <drv/intrCtl/m8260IntrCtl.h>
 #include <cacheLib.h>
 #include <drv/parallel/m8260IOPort.h>
-
 #include "spi.h"
 
 #define IVEC   INUM_SPI
@@ -12,7 +11,7 @@
 void spiInit();
 void spiEnable();
 void spiDisable();
-void spiSend(short val);
+short spiSend(char adr, short val);
 void spiIsr();
 void spiSetIsr(void (*func)(short));
 
@@ -169,14 +168,14 @@ void spiDisable()
 
 void setSS(char adr, int val)
 {
-  if(adr == AUDIO_ADR) //audio
+  if(adr == AUDIO_ADR) /*audio*/
   {
 	  if(val)
 		  * M8260_IOP_PDDAT(immrVal) |= PD19;
 	  else
 		  * M8260_IOP_PDDAT(immrVal) &= ~PD19;
   }
-  else if(adr == CHECK_ADR) //self test
+  else if(adr == CHECK_ADR) /*self test*/
   {
     if(val)
 		  * M8260_IOP_PCDAT(immrVal) |= PC30;
@@ -204,8 +203,8 @@ short spiSend(char adr, short val)
 	/*wait send complete*/
 	for(i=0;i<3000;i++);
         
-        //return receive value
-	recv_value = *(short*)rxBd->bd_buffer
+        /*return receive value*/
+	recv_value = *(short*)rxBd->bd_buffer;
   rxBd->bd_cstatus |= RX_E;
 
 	setSS(adr, 1);
@@ -249,6 +248,7 @@ void spiSetIsr(void (*func)(short))
 	_isr_func = func;
 }
 
+#if 0
 void testSend(int cnt,short val)
 {
 	int i;
@@ -277,3 +277,4 @@ void testSysTime(int val)
 	taskDelay(val);
 	setSS(1);
 }
+#endif

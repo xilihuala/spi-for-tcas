@@ -104,9 +104,11 @@ typedef struct BufferDescriptor
 #define PD17    (0x00004000)
 #define PD16    (0x00008000)
 
+#define PC30    (0x00000002)
+
 
 #define  AUDIO_ADR   0
-#dedfine CHECK_ADR   1
+#define CHECK_ADR   1
 
 
 #endif

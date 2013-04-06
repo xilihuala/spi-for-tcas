@@ -1,3 +1,4 @@
+#include <vxworks.h>
 #include "spi.h"
 short start_self_check()
 {
